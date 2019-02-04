@@ -10,21 +10,14 @@
 constexpr size_t numberOfButtons{6};
 
 // First row
-constexpr size_t buttonPin0{2};
-constexpr size_t buttonPin1{3};
-constexpr size_t buttonPin2{4};
+EasyButton button0{2};
+EasyButton button1{3};
+EasyButton button2{4};
+
 // Second row
-constexpr size_t buttonPin3{5};
-constexpr size_t buttonPin4{6};
-constexpr size_t buttonPin5{7};
-
-EasyButton button0(buttonPin0);
-EasyButton button1(buttonPin1);
-EasyButton button2(buttonPin2);
-
-EasyButton button3(buttonPin3);
-EasyButton button4(buttonPin4);
-EasyButton button5(buttonPin5);
+EasyButton button3{5};
+EasyButton button4{6};
+EasyButton button5{7};
 
 
 constexpr uint8_t midiOff{0};
