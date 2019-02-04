@@ -27,21 +27,23 @@
 
 constexpr size_t numberOfButtons{6};
 
-// First row
-EasyButton button0{2};
-EasyButton button1{3};
-EasyButton button2{4};
+EasyButton button[numberOfButtons] = {
+    // First row
+    EasyButton{2},
+    EasyButton{3},
+    EasyButton{4},
 
-// Second row
-EasyButton button3{5};
-EasyButton button4{6};
-EasyButton button5{7};
+    // Second row
+    EasyButton{5},
+    EasyButton{6},
+    EasyButton{7}
+};
 
 
 constexpr uint8_t midiOff{0};
 constexpr uint8_t midiOn{127};
 
-constexpr uint8_t data[] = {
+constexpr uint8_t data[numberOfButtons] = {
     midiOn,
     midiOn,
     midiOn,
@@ -50,7 +52,8 @@ constexpr uint8_t data[] = {
     midiOff,
     midiOff
 };
-constexpr uint8_t control[] = {
+
+constexpr uint8_t control[numberOfButtons] = {
     2,
     3,
     4,
@@ -77,36 +80,33 @@ void onPressed()
     Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control[id]) + "\t" + String(data[id]));
 }
 
+template<size_t id>
+void setupButton()
+{
+    static_assert(id < numberOfButtons, "Invalid id");
+
+    button[id].begin();
+    button[id].onPressed(onPressed<id>);
+}
+
+
 void setup()
 {
     Serial.begin(9600);
     Serial.println("Init");
 
-    button0.begin();
-    button0.onPressed(onPressed<0>);
-
-    button1.begin();
-    button1.onPressed(onPressed<1>);
-
-    button2.begin();
-    button2.onPressed(onPressed<2>);
-
-    button3.begin();
-    button3.onPressed(onPressed<3>);
-
-    button4.begin();
-    button4.onPressed(onPressed<4>);
-
-    button5.begin();
-    button5.onPressed(onPressed<5>);
+    setupButton<0>();
+    setupButton<1>();
+    setupButton<2>();
+    setupButton<3>();
+    setupButton<4>();
+    setupButton<5>();
 }
 
 void loop()
 {
-    button0.read();
-    button1.read();
-    button2.read();
-    button3.read();
-    button4.read();
-    button5.read();
+    for( auto& b : button )
+    {
+        b.read();
+    }
 }
