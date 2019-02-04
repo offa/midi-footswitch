@@ -66,7 +66,8 @@ constexpr uint8_t control[numberOfButtons] = {
 
 void controlChange(uint8_t channel, uint8_t control, uint8_t value)
 {
-    const midiEventPacket_t event{0x0Bu, static_cast<uint8_t>(0xB0u | channel), control, value};
+    constexpr uint8_t eventTypeControlChange{0xb0};
+    const midiEventPacket_t event{eventTypeControlChange, static_cast<uint8_t>(eventTypeControlChange | channel), control, value};
     MidiUSB.sendMIDI(event);
     MidiUSB.flush();
 }
