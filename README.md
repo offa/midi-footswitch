@@ -7,7 +7,7 @@ An Aruduino based USB MIDI Controller.
 
 ### Libraries
 
-- [MIDIUSB](https://www.arduino.cc/en/Reference/MIDIUSB)
+- [MIDIUSB](https://github.com/arduino-libraries/MIDIUSB)
 - [EasyButton](https://github.com/evert-arias/EasyButton)
 
 
