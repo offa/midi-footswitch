@@ -17,11 +17,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wreorder"
 #include <EasyButton.h>
-#pragma GCC diagnostic pop
-
 #include <MIDIUSB.h>
 
 
