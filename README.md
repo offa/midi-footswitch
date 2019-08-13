@@ -1,8 +1,11 @@
 # MIDI Footswitch
 
+[![Build Status](https://travis-ci.com/offa/midi-footswitch.svg?branch=master)](https://travis-ci.com/offa/midi-footswitch)
+[![GitHub release](https://img.shields.io/github/release/offa/midi-footswitch.svg)](https://github.com/offa/midi-footswitch/releases)
 [![License](https://img.shields.io/badge/license-GPLv3-yellow.svg)](LICENSE)
+![C++](https://img.shields.io/badge/c++-14-green.svg)
 
-An Aruduino based USB MIDI Controller.
+An *Aruduino Micro* based USB MIDI Controller.
 
 
 ### Libraries
