@@ -33,8 +33,7 @@ EasyButton button[numberOfButtons] = {
     // Second row
     EasyButton{5},
     EasyButton{6},
-    EasyButton{7}
-};
+    EasyButton{7}};
 
 
 constexpr uint8_t midiOff{0};
@@ -47,8 +46,7 @@ constexpr uint8_t data[numberOfButtons] = {
 
     midiOff,
     midiOff,
-    midiOff
-};
+    midiOff};
 
 constexpr uint8_t control[numberOfButtons] = {
     2,
@@ -57,8 +55,7 @@ constexpr uint8_t control[numberOfButtons] = {
 
     5,
     6,
-    7
-};
+    7};
 
 
 void controlChange(uint8_t channel, uint8_t control, uint8_t value)
@@ -69,7 +66,7 @@ void controlChange(uint8_t channel, uint8_t control, uint8_t value)
     MidiUSB.flush();
 }
 
-template<size_t id>
+template <size_t id>
 void onPressed()
 {
     static_assert(id < numberOfButtons, "Invalid id");
@@ -78,7 +75,7 @@ void onPressed()
     Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control[id]) + "\t" + String(data[id]));
 }
 
-template<size_t id>
+template <size_t id>
 void setupButton()
 {
     static_assert(id < numberOfButtons, "Invalid id");
@@ -103,7 +100,7 @@ void setup()
 
 void loop()
 {
-    for( auto& b : button )
+    for (auto& b : button)
     {
         b.read();
     }
