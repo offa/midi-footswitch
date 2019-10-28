@@ -26,36 +26,22 @@ constexpr size_t numberOfButtons{6};
 
 EasyButton button[numberOfButtons] = {
     // First row
-    EasyButton{2},
-    EasyButton{3},
-    EasyButton{4},
+    EasyButton{2}, EasyButton{3}, EasyButton{4},
 
     // Second row
-    EasyButton{5},
-    EasyButton{6},
-    EasyButton{7}};
+    EasyButton{5}, EasyButton{6}, EasyButton{7}};
 
 
 constexpr uint8_t midiOff{0};
 constexpr uint8_t midiOn{127};
 
-constexpr uint8_t data[numberOfButtons] = {
-    midiOn,
-    midiOn,
-    midiOn,
+constexpr uint8_t data[numberOfButtons] = {midiOn,  midiOn,  midiOn,
 
-    midiOff,
-    midiOff,
-    midiOff};
+                                           midiOff, midiOff, midiOff};
 
-constexpr uint8_t control[numberOfButtons] = {
-    2,
-    3,
-    4,
+constexpr uint8_t control[numberOfButtons] = {2, 3, 4,
 
-    5,
-    6,
-    7};
+                                              5, 6, 7};
 
 
 void controlChange(uint8_t channel, uint8_t control, uint8_t value)
