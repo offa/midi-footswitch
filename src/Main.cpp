@@ -35,7 +35,7 @@ EasyButton button[numberOfButtons] = {
 constexpr uint8_t midiOff{0};
 constexpr uint8_t midiOn{127};
 
-constexpr uint8_t data[numberOfButtons] = {midiOn,  midiOn,  midiOn,
+constexpr uint8_t data[numberOfButtons] = {midiOn, midiOn, midiOn,
 
                                            midiOff, midiOff, midiOff};
 
