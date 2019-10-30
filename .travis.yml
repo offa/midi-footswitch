@@ -4,6 +4,10 @@
 
  python:
      - "3.7"
+ env:
+   global:
+     - PLATFORMIO_SETTING_ENABLE_TELEMETRY: "no"
+     - PLATFORMIO_SETTING_STRICT_SSL: "yes"
 
  cache:
      directories:
@@ -11,7 +15,6 @@
 
  install:
      - pip install -U platformio
-     - ./setup-pio-settings.sh
      - platformio update
 
  script:
