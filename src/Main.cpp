@@ -17,49 +17,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#include <Arduino.h>
-#include <EasyButton.h>
-#include <MIDIUSB.h>
-
+#include "MidiButton.h"
 
 constexpr uint8_t midiOff{0};
 constexpr uint8_t midiOn{127};
 
-
-void controlChange(uint8_t channel, uint8_t control, uint8_t value)
-{
-    constexpr uint8_t eventTypeControlChange{0xb0};
-    const midiEventPacket_t event{eventTypeControlChange, static_cast<uint8_t>(eventTypeControlChange | channel), control, value};
-    MidiUSB.sendMIDI(event);
-    MidiUSB.flush();
-}
-
-template<size_t id, uint8_t control, uint8_t data>
-void onPressed()
-{
-    controlChange(0, control, data);
-    Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control) + "\t" + String(data));
-}
-
-
-template<size_t id, uint8_t control, uint8_t data>
-class MidiButton
-{
-public:
-    void setup()
-    {
-        button.begin();
-        button.onPressed(::onPressed<id, control, data>);
-    }
-
-    void read()
-    {
-        button.read();
-    }
-
-private:
-    EasyButton button{id};
-};
 
 MidiButton<2, 2, midiOn> button0;
 MidiButton<3, 3, midiOn> button1;
