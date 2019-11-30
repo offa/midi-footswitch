@@ -24,7 +24,6 @@ namespace
     constexpr uint8_t midiOff{0};
     constexpr uint8_t midiOn{127};
 
-
     MidiButton<2, 2, midiOn> button0;
     MidiButton<3, 3, midiOn> button1;
     MidiButton<4, 4, midiOn> button2;
