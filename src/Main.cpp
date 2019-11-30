@@ -18,6 +18,7 @@
  */
 
 #include "MidiButton.h"
+#include <Arduino.h>
 
 namespace
 {
