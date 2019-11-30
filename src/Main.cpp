@@ -22,20 +22,8 @@
 #include <MIDIUSB.h>
 
 
-constexpr size_t numberOfButtons{6};
-
-EasyButton button[numberOfButtons] = {
-    // First row
-    EasyButton{2}, EasyButton{3}, EasyButton{4},
-    // Second row
-    EasyButton{5}, EasyButton{6}, EasyButton{7}};
-
-
 constexpr uint8_t midiOff{0};
 constexpr uint8_t midiOn{127};
-
-constexpr uint8_t data[numberOfButtons] = {midiOn, midiOn, midiOn, midiOff, midiOff, midiOff};
-constexpr uint8_t control[numberOfButtons] = {2, 3, 4, 5, 6, 7};
 
 
 void controlChange(uint8_t channel, uint8_t control, uint8_t value)
@@ -46,42 +34,59 @@ void controlChange(uint8_t channel, uint8_t control, uint8_t value)
     MidiUSB.flush();
 }
 
-template <size_t id>
+template<size_t id, uint8_t control, uint8_t data>
 void onPressed()
 {
-    static_assert(id < numberOfButtons, "Invalid id");
-
-    controlChange(0, control[id], data[id]);
-    Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control[id]) + "\t" + String(data[id]));
+    controlChange(0, control, data);
+    Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control) + "\t" + String(data));
 }
 
-template <size_t id>
-void setupButton()
+
+template<size_t id, uint8_t control, uint8_t data>
+class MidiButton
 {
-    static_assert(id < numberOfButtons, "Invalid id");
+public:
+    void setup()
+    {
+        button.begin();
+        button.onPressed(::onPressed<id, control, data>);
+    }
 
-    button[id].begin();
-    button[id].onPressed(onPressed<id>);
-}
+    void read()
+    {
+        button.read();
+    }
 
+private:
+    EasyButton button{id};
+};
+
+MidiButton<2, 2, midiOn> button0;
+MidiButton<3, 3, midiOn> button1;
+MidiButton<4, 4, midiOn> button2;
+MidiButton<5, 5, midiOff> button3;
+MidiButton<6, 6, midiOff> button4;
+MidiButton<7, 7, midiOff> button5;
 
 void setup()
 {
     Serial.begin(9600);
     Serial.println("Init");
 
-    setupButton<0>();
-    setupButton<1>();
-    setupButton<2>();
-    setupButton<3>();
-    setupButton<4>();
-    setupButton<5>();
+    button0.setup();
+    button1.setup();
+    button2.setup();
+    button3.setup();
+    button4.setup();
+    button5.setup();
 }
 
 void loop()
 {
-    for (auto& b : button)
-    {
-        b.read();
-    }
+    button0.read();
+    button1.read();
+    button2.read();
+    button3.read();
+    button4.read();
+    button5.read();
 }
