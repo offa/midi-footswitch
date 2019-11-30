@@ -23,21 +23,23 @@
 #include <EasyButton.h>
 #include <MIDIUSB.h>
 
-
-template<uint8_t channel>
-void controlChange(uint8_t control, uint8_t value)
+namespace detail
 {
-    constexpr uint8_t eventTypeControlChange{0xb0};
-    const midiEventPacket_t event{eventTypeControlChange, static_cast<uint8_t>(eventTypeControlChange | channel), control, value};
-    MidiUSB.sendMIDI(event);
-    MidiUSB.flush();
-}
+    template<uint8_t channel>
+    void controlChange(uint8_t control, uint8_t value)
+    {
+        constexpr uint8_t eventTypeControlChange{0xb0};
+        const midiEventPacket_t event{eventTypeControlChange, static_cast<uint8_t>(eventTypeControlChange | channel), control, value};
+        MidiUSB.sendMIDI(event);
+        MidiUSB.flush();
+    }
 
-template<size_t id, uint8_t control, uint8_t data>
-void onPressed()
-{
-    controlChange<0>(control, data);
-    Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control) + "\t" + String(data));
+    template<size_t id, uint8_t control, uint8_t data>
+    void onPressed()
+    {
+        controlChange<0>(control, data);
+        Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control) + "\t" + String(data));
+    }
 }
 
 
@@ -48,7 +50,7 @@ public:
     void setup()
     {
         button.begin();
-        button.onPressed(::onPressed<id, control, data>);
+        button.onPressed(detail::onPressed<id, control, data>);
     }
 
     void read()
