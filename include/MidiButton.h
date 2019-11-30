@@ -28,8 +28,7 @@ namespace detail
     template<uint8_t channel>
     void controlChange(uint8_t control, uint8_t value)
     {
-        constexpr uint8_t eventTypeControlChange{0xb0};
-        const midiEventPacket_t event{eventTypeControlChange, uint8_t{eventTypeControlChange | channel}, control, value};
+        const midiEventPacket_t event{0x0b, (0xb0 | channel), control, value};
         MidiUSB.sendMIDI(event);
         MidiUSB.flush();
     }
