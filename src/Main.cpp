@@ -28,9 +28,9 @@ namespace
     MidiButton<2, 2, midiOn> button0;
     MidiButton<3, 3, midiOn> button1;
     MidiButton<4, 4, midiOn> button2;
-    MidiButton<5, 5, midiOff> button3;
-    MidiButton<6, 6, midiOff> button4;
-    MidiButton<7, 7, midiOff> button5;
+    MidiButton<5, 4, midiOff> button3;
+    MidiButton<6, 3, midiOff> button4;
+    MidiButton<7, 2, midiOff> button5;
 }
 
 
