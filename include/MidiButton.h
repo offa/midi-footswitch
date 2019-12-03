@@ -25,7 +25,7 @@
 
 namespace detail
 {
-    template<uint8_t channel>
+    template <uint8_t channel>
     void controlChange(uint8_t control, uint8_t value)
     {
         const midiEventPacket_t event{0x0b, (0xb0 | channel), control, value};
@@ -33,7 +33,7 @@ namespace detail
         MidiUSB.flush();
     }
 
-    template<size_t id, uint8_t control, uint8_t data>
+    template <size_t id, uint8_t control, uint8_t data>
     void onPressed()
     {
         controlChange<0>(control, data);
@@ -42,7 +42,7 @@ namespace detail
 }
 
 
-template<size_t id, uint8_t control, uint8_t data>
+template <size_t id, uint8_t control, uint8_t data>
 class MidiButton
 {
 public:
