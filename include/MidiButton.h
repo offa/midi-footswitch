@@ -26,9 +26,9 @@
 namespace detail
 {
     template <uint8_t type, uint8_t channel>
-    void sendEventMessage(uint8_t payload0, uint8_t payload1)
+    void sendEventMessage(uint8_t data0, uint8_t data1)
     {
-        midiEventPacket_t event{(type & 0xf0) >> 4, (type | channel), payload0, payload1};
+        midiEventPacket_t event{(type & 0xf0) >> 4, (type | channel), data0, data1};
         MidiUSB.sendMIDI(event);
         MidiUSB.flush();
     }
