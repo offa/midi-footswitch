@@ -25,31 +25,27 @@
 
 namespace detail
 {
-    template <uint8_t channel>
-    void controlChange(uint8_t control, uint8_t value)
+    template <uint8_t channel, uint8_t control, uint8_t data>
+    struct ControlChangeAction
     {
-        const midiEventPacket_t event{0x0b, (0xb0 | channel), control, value};
-        MidiUSB.sendMIDI(event);
-        MidiUSB.flush();
-    }
-
-    template <size_t id, uint8_t control, uint8_t data>
-    void onPressed()
-    {
-        controlChange<0>(control, data);
-        Serial.println("ControlChange: \t#" + String(id) + "\t" + String(control) + "\t" + String(data));
-    }
+        static void onPressed()
+        {
+            const midiEventPacket_t event{0x0b, (0xb0 | channel), control, data};
+            MidiUSB.sendMIDI(event);
+            MidiUSB.flush();
+        }
+    };
 }
 
 
-template <size_t id, uint8_t control, uint8_t data>
+template <size_t id, class Command>
 class MidiButton
 {
 public:
     void setup()
     {
         button.begin();
-        button.onPressed(detail::onPressed<id, control, data>);
+        button.onPressed(Command::onPressed);
     }
 
     void read()
