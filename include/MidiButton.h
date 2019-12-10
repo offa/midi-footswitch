@@ -36,14 +36,14 @@ struct ControlChangeAction
 
 
 
-template <size_t id, class Command>
+template <size_t id, class Action>
 class MidiButton
 {
 public:
     void setup()
     {
         button.begin();
-        button.onPressed(Command::onPressed);
+        button.onPressed(Action::onPressed);
     }
 
     void read()
