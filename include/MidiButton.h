@@ -23,14 +23,24 @@
 #include <EasyButton.h>
 #include <MIDIUSB.h>
 
+namespace detail
+{
+    template <uint8_t type, uint8_t channel>
+    void sendEventMessage(uint8_t payload0, uint8_t payload1)
+    {
+        midiEventPacket_t event{(type & 0xf0) >> 4, (type | channel), payload0, payload1};
+        MidiUSB.sendMIDI(event);
+        MidiUSB.flush();
+    }
+}
+
+
 template <uint8_t channel, uint8_t control, uint8_t data>
 struct ControlChangeAction
 {
     static void onPressed()
     {
-        const midiEventPacket_t event{0x0b, (0xb0 | channel), control, data};
-        MidiUSB.sendMIDI(event);
-        MidiUSB.flush();
+        detail::sendEventMessage<0xb0, channel>(control, data);
     }
 };
 
@@ -40,9 +50,7 @@ struct ProgramChangeAction
 {
     static void onPressed()
     {
-        const midiEventPacket_t event{0x0c, (0xc0 | channel), program, 0x00};
-        MidiUSB.sendMIDI(event);
-        MidiUSB.flush();
+        detail::sendEventMessage<0xc0, channel>(program, 0x00);
     }
 };
 
