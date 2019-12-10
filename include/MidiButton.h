@@ -35,6 +35,17 @@ struct ControlChangeAction
 };
 
 
+template <uint8_t channel, uint8_t program>
+struct ProgramChangeAction
+{
+    static void onPressed()
+    {
+        const midiEventPacket_t event{0x0c, (0xc0 | channel), program, 0x00};
+        MidiUSB.sendMIDI(event);
+        MidiUSB.flush();
+    }
+};
+
 
 template <size_t id, class Action>
 class MidiButton
