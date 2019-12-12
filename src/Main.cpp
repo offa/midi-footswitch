@@ -22,15 +22,16 @@
 
 namespace
 {
+    constexpr uint8_t channel{0};
     constexpr uint8_t midiOff{0};
     constexpr uint8_t midiOn{127};
 
-    MidiButton<2, ProgramChangeAction<0, 13>> button0;
-    MidiButton<3, ControlChangeAction<0, 3, midiOn>> button1;
-    MidiButton<4, ControlChangeAction<0, 4, midiOn>> button2;
-    MidiButton<5, ControlChangeAction<0, 4, midiOff>> button3;
-    MidiButton<6, ControlChangeAction<0, 3, midiOff>> button4;
-    MidiButton<7, ProgramChangeAction<0, 14>> button5;
+    MidiButton<2, ProgramChangeAction<channel, 13>> button0;
+    MidiButton<3, ControlChangeAction<channel, 3, midiOn>> button1;
+    MidiButton<4, ControlChangeAction<channel, 4, midiOn>> button2;
+    MidiButton<5, ControlChangeAction<channel, 4, midiOff>> button3;
+    MidiButton<6, ControlChangeAction<channel, 3, midiOff>> button4;
+    MidiButton<7, ProgramChangeAction<channel, 14>> button5;
 }
 
 
