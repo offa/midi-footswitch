@@ -39,6 +39,12 @@ namespace
     {
         (buttons.setup(), ...);
     }
+
+    template<class... Buttons>
+    void readButtons(Buttons&&... buttons)
+    {
+        (buttons.read(), ...);
+    }
 }
 
 
@@ -52,10 +58,5 @@ void setup()
 
 void loop()
 {
-    button0.read();
-    button1.read();
-    button2.read();
-    button3.read();
-    button4.read();
-    button5.read();
+    readButtons(button0, button1, button2, button3, button4, button5);
 }
