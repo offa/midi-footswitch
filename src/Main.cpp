@@ -32,6 +32,13 @@ namespace
     MidiButton<5, ControlChangeAction<channel, 4, midiOff>> button3;
     MidiButton<6, ControlChangeAction<channel, 3, midiOff>> button4;
     MidiButton<7, ControlChangeAction<channel, 2, midiOff>> button5;
+
+
+    template<class... Buttons>
+    void setupButtons(Buttons&&... buttons)
+    {
+        (buttons.setup(), ...);
+    }
 }
 
 
@@ -40,12 +47,7 @@ void setup()
     Serial.begin(9600);
     Serial.println("Init");
 
-    button0.setup();
-    button1.setup();
-    button2.setup();
-    button3.setup();
-    button4.setup();
-    button5.setup();
+    setupButtons(button0, button1, button2, button3, button4, button5);
 }
 
 void loop()
