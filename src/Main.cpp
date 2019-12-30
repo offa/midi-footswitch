@@ -34,13 +34,13 @@ namespace
     MidiButton<7, ControlChangeToggleAction<channel, 5, midiOn, midiOff>> button5;
 
 
-    template<class... Buttons>
+    template <class... Buttons>
     void setupButtons(Buttons&&... buttons)
     {
         (buttons.setup(), ...);
     }
 
-    template<class... Buttons>
+    template <class... Buttons>
     void readButtons(Buttons&&... buttons)
     {
         (buttons.read(), ...);
