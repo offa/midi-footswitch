@@ -45,6 +45,20 @@ struct ControlChangeAction
 };
 
 
+template <uint8_t channel, uint8_t control, uint8_t dataA, uint8_t dataB>
+struct ControlChangeToggleAction
+{
+    static void onPressed()
+    {
+        detail::sendEventMessage<0xb0, channel>(control, (state ? dataA : dataB));
+        state = !state;
+    }
+
+private:
+    static inline bool state{true};
+};
+
+
 template <uint8_t channel, uint8_t program>
 struct ProgramChangeAction
 {
