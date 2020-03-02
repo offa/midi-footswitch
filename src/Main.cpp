@@ -50,9 +50,6 @@ namespace
 
 void setup()
 {
-    Serial.begin(9600);
-    Serial.println("Init");
-
     setupButtons(button0, button1, button2, button3, button4, button5);
 }
 
