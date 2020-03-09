@@ -69,7 +69,7 @@ struct ProgramChangeAction
 };
 
 
-template <size_t id, class Action>
+template <uint8_t id, class Action>
 class MidiButton
 {
 public:
