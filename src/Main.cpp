@@ -22,16 +22,26 @@
 
 namespace
 {
+    namespace pin
+    {
+        inline constexpr uint8_t d2{2};
+        inline constexpr uint8_t d3{3};
+        inline constexpr uint8_t d4{4};
+        inline constexpr uint8_t d5{5};
+        inline constexpr uint8_t d6{6};
+        inline constexpr uint8_t d7{7};
+    }
+
     constexpr uint8_t channel{0};
     constexpr uint8_t midiOff{0};
     constexpr uint8_t midiOn{127};
 
-    MidiButton<2, ControlChangeToggleAction<channel, 0, midiOn, midiOff>> button0;
-    MidiButton<3, ControlChangeToggleAction<channel, 1, midiOn, midiOff>> button1;
-    MidiButton<4, ControlChangeToggleAction<channel, 2, midiOn, midiOff>> button2;
-    MidiButton<5, ControlChangeToggleAction<channel, 3, midiOn, midiOff>> button3;
-    MidiButton<6, ControlChangeToggleAction<channel, 4, midiOn, midiOff>> button4;
-    MidiButton<7, ControlChangeToggleAction<channel, 5, midiOn, midiOff>> button5;
+    MidiButton<pin::d2, ControlChangeToggleAction<channel, 0, midiOn, midiOff>> button0;
+    MidiButton<pin::d3, ControlChangeToggleAction<channel, 1, midiOn, midiOff>> button1;
+    MidiButton<pin::d4, ControlChangeToggleAction<channel, 2, midiOn, midiOff>> button2;
+    MidiButton<pin::d5, ControlChangeToggleAction<channel, 3, midiOn, midiOff>> button3;
+    MidiButton<pin::d6, ControlChangeToggleAction<channel, 4, midiOn, midiOff>> button4;
+    MidiButton<pin::d7, ControlChangeToggleAction<channel, 5, midiOn, midiOff>> button5;
 
 
     template <class... Buttons>
