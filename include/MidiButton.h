@@ -49,12 +49,10 @@ struct ControlChangeAction
 template <uint8_t channel, uint8_t control, uint8_t dataA, uint8_t dataB>
 struct ControlChangeToggleAction
 {
-    static bool onPressed()
+    static void onPressed()
     {
-        const auto currentState = state;
         detail::sendEventMessage<0xb0, channel>(control, (state ? dataA : dataB));
         state = !state;
-        return currentState;
     }
 
 private:
@@ -65,10 +63,9 @@ private:
 template <uint8_t channel, uint8_t program>
 struct ProgramChangeAction
 {
-    static bool onPressed()
+    static void onPressed()
     {
         detail::sendEventMessage<0xc0, channel>(program, 0x00);
-        return true;
     }
 };
 
@@ -98,11 +95,12 @@ public:
     void setup()
     {
         pinMode(pin, OUTPUT);
+        digitalWrite(pin, HIGH);
     }
 
-    void set(bool on)
+    void toggle()
     {
-        digitalWrite(pin, on ? HIGH : LOW);
+        digitalWrite(pin, !digitalRead(pin));
     }
 
 };
@@ -121,7 +119,8 @@ public:
     {
         if( button.pressed() )
         {
-            led.set(Action::onPressed());
+            Action::onPressed();
+            led.toggle();
         }
     }
 
