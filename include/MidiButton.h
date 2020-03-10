@@ -76,12 +76,16 @@ public:
     void setup()
     {
         button.begin();
-        button.onPressed(Action::onPressed);
     }
 
     void read()
     {
         button.read();
+
+        if( button.wasReleased() )
+        {
+            Action::onPressed();
+        }
     }
 
 private:
