@@ -36,12 +36,12 @@ namespace
     constexpr uint8_t midiOff{0};
     constexpr uint8_t midiOn{127};
 
-    MidiButton<pin::d2, ControlChangeToggleAction<channel, 0, midiOn, midiOff>> button0;
-    MidiButton<pin::d3, ControlChangeToggleAction<channel, 1, midiOn, midiOff>> button1;
-    MidiButton<pin::d4, ControlChangeToggleAction<channel, 2, midiOn, midiOff>> button2;
-    MidiButton<pin::d5, ControlChangeToggleAction<channel, 3, midiOn, midiOff>> button3;
-    MidiButton<pin::d6, ControlChangeToggleAction<channel, 4, midiOn, midiOff>> button4;
-    MidiButton<pin::d7, ControlChangeToggleAction<channel, 5, midiOn, midiOff>> button5;
+    MidiButton<Button<pin::d2>, ControlChangeToggleAction<channel, 0, midiOn, midiOff>> button0;
+    MidiButton<Button<pin::d3>, ControlChangeToggleAction<channel, 1, midiOn, midiOff>> button1;
+    MidiButton<Button<pin::d4>, ControlChangeToggleAction<channel, 2, midiOn, midiOff>> button2;
+    MidiButton<Button<pin::d5>, ControlChangeToggleAction<channel, 3, midiOn, midiOff>> button3;
+    MidiButton<Button<pin::d6>, ControlChangeToggleAction<channel, 4, midiOn, midiOff>> button4;
+    MidiButton<Button<pin::d7>, ControlChangeToggleAction<channel, 5, midiOn, midiOff>> button5;
 
 
     template <class... Buttons>

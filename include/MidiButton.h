@@ -68,9 +68,8 @@ struct ProgramChangeAction
     }
 };
 
-
-template <uint8_t pin, class Action>
-class MidiButton
+template<uint8_t pin>
+class Button
 {
 public:
     void setup()
@@ -78,16 +77,34 @@ public:
         button.begin();
     }
 
-    void read()
+    boolean pressed()
     {
         button.read();
+        return button.wasReleased();
+    }
 
-        if( button.wasReleased() )
+private:
+    EasyButton button{pin};
+};
+
+
+template <class Button, class Action>
+class MidiButton
+{
+public:
+    void setup()
+    {
+        button.setup();
+    }
+
+    void read()
+    {
+        if( button.pressed() )
         {
             Action::onPressed();
         }
     }
 
 private:
-    EasyButton button{pin};
+    Button button;
 };
