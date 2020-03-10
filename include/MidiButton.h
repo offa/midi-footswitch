@@ -38,10 +38,9 @@ namespace detail
 template <uint8_t channel, uint8_t control, uint8_t data>
 struct ControlChangeAction
 {
-    static bool onPressed()
+    static void onPressed()
     {
         detail::sendEventMessage<0xb0, channel>(control, data);
-        return true;
     }
 };
 
