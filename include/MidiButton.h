@@ -38,9 +38,10 @@ namespace detail
 template <uint8_t channel, uint8_t control, uint8_t data>
 struct ControlChangeAction
 {
-    static void onPressed()
+    static bool onPressed()
     {
         detail::sendEventMessage<0xb0, channel>(control, data);
+        return true;
     }
 };
 
@@ -48,10 +49,12 @@ struct ControlChangeAction
 template <uint8_t channel, uint8_t control, uint8_t dataA, uint8_t dataB>
 struct ControlChangeToggleAction
 {
-    static void onPressed()
+    static bool onPressed()
     {
+        const auto currentState = state;
         detail::sendEventMessage<0xb0, channel>(control, (state ? dataA : dataB));
         state = !state;
+        return currentState;
     }
 
 private:
@@ -62,9 +65,10 @@ private:
 template <uint8_t channel, uint8_t program>
 struct ProgramChangeAction
 {
-    static void onPressed()
+    static bool onPressed()
     {
         detail::sendEventMessage<0xc0, channel>(program, 0x00);
+        return true;
     }
 };
 
@@ -87,24 +91,41 @@ private:
     EasyButton button{pin};
 };
 
+template<uint8_t pin>
+class Led
+{
+public:
+    void setup()
+    {
+        pinMode(pin, OUTPUT);
+    }
 
-template <class Button, class Action>
+    void set(bool on)
+    {
+        digitalWrite(pin, on ? HIGH : LOW);
+    }
+
+};
+
+template <class Button, class Led, class Action>
 class MidiButton
 {
 public:
     void setup()
     {
         button.setup();
+        led.setup();
     }
 
     void read()
     {
         if( button.pressed() )
         {
-            Action::onPressed();
+            led.set(Action::onPressed());
         }
     }
 
 private:
     Button button;
+    Led led;
 };
