@@ -39,9 +39,9 @@ namespace
         inline constexpr uint8_t a5{23};
     }
 
-    constexpr uint8_t channel{0};
-    constexpr uint8_t midiOff{0};
-    constexpr uint8_t midiOn{127};
+    inline constexpr uint8_t channel{0};
+    inline constexpr uint8_t midiOff{0};
+    inline constexpr uint8_t midiOn{127};
 
     MidiButton<Button<pin::d2>, Led<pin::a5>, ControlChangeToggleAction<channel, 0, midiOn, midiOff>> button0;
     MidiButton<Button<pin::d3>, Led<pin::a4>, ControlChangeToggleAction<channel, 1, midiOn, midiOff>> button1;
