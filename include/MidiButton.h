@@ -69,7 +69,7 @@ struct ProgramChangeAction
 };
 
 
-template <uint8_t id, class Action>
+template <uint8_t pin, class Action>
 class MidiButton
 {
 public:
@@ -85,5 +85,5 @@ public:
     }
 
 private:
-    EasyButton button{id};
+    EasyButton button{pin};
 };
