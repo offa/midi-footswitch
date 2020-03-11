@@ -68,7 +68,7 @@ struct ProgramChangeAction
     }
 };
 
-template<uint8_t pin>
+template <uint8_t pin>
 class Button
 {
 public:
@@ -87,7 +87,7 @@ private:
     EasyButton button{pin};
 };
 
-template<uint8_t pin>
+template <uint8_t pin>
 class Led
 {
 public:
@@ -101,7 +101,6 @@ public:
     {
         digitalWrite(pin, !digitalRead(pin));
     }
-
 };
 
 template <class Button, class Led, class Action>
@@ -116,7 +115,7 @@ public:
 
     void read()
     {
-        if( button.pressed() )
+        if (button.pressed())
         {
             Action::onPressed();
             led.toggle();
