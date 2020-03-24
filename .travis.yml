@@ -1,22 +1,21 @@
- language: python
+language: python
 
- dist: bionic
+dist: bionic
 
- python:
-     - "3.7"
- env:
-   global:
-     - PLATFORMIO_SETTING_ENABLE_TELEMETRY: "no"
-     - PLATFORMIO_SETTING_STRICT_SSL: "yes"
+python:
+    - "3.7"
+env:
+  global:
+    - PLATFORMIO_SETTING_ENABLE_TELEMETRY: "no"
+    - PLATFORMIO_SETTING_STRICT_SSL: "yes"
 
- cache:
-     directories:
-         - "~/.platformio"
+cache:
+    directories:
+        - "~/.platformio"
 
- install:
-     - pip install -U platformio
-     - platformio update
+install:
+    - pip install -U platformio
+    - platformio update
 
- script:
-     - platformio run
-
+script:
+    - platformio run
