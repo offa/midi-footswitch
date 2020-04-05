@@ -1,0 +1,7 @@
+[requires]
+catch2/2.11.3
+trompeloeil/v36@rollbear/stable
+
+[generators]
+cmake_find_package
+cmake_paths
