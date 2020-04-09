@@ -1,21 +1,48 @@
-language: python
+language: minimal
 
 dist: bionic
 
-python:
-    - "3.7"
+services:
+  - docker
+
 env:
   global:
-    - PLATFORMIO_SETTING_ENABLE_TELEMETRY: "no"
-    - PLATFORMIO_SETTING_STRICT_SSL: "yes"
+    - DOCKER_IMG="registry.gitlab.com/offa/docker-images"
 
-cache:
-    directories:
-        - "~/.platformio"
+jobs:
+  include:
+    - language: python
+      python: 3.8
+      env:
+        - COMPILER=pio
+        - PLATFORMIO_SETTING_ENABLE_TELEMETRY: "no"
+        - PLATFORMIO_SETTING_STRICT_SSL: "yes"
+      cache:
+        directories:
+          - "~/.platformio"
+
+    - language: minimal
+      env:
+        - COMPILER=gcc-9
+
+    - language: minimal
+      env:
+        - COMPILER=clang-10
+
 
 install:
-    - pip install -U platformio
-    - platformio update
+  - |
+    if [ "${COMPILER}" == "pio" ]; then
+      pip install -U platformio
+      platformio update
+    else
+      docker pull ${DOCKER_IMG}/${COMPILER}:stable
+    fi
 
 script:
-    - platformio run
+  - |
+    if [ "${COMPILER}" == "pio" ]; then
+      platformio run
+    else
+      docker run --cap-add SYS_PTRACE -v ${PWD}:/mnt -it ${DOCKER_IMG}/${COMPILER} /bin/bash -c "cd /mnt; script/ci_build.sh"
+    fi
