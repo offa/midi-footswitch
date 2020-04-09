@@ -26,7 +26,7 @@ void digitalWrite(uint8_t pin, uint8_t val)
 
 int digitalRead(uint8_t pin)
 {
-    return 0;
+    return mock::arduino.digitalRead(pin);
 }
 
 void pinMode(uint8_t pin, uint8_t mode)

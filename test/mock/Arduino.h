@@ -27,6 +27,7 @@ using boolean = bool;
 
 
 inline constexpr uint8_t OUTPUT{1};
+inline constexpr uint8_t LOW{0};
 inline constexpr uint8_t HIGH{1};
 
 void digitalWrite(uint8_t pin, uint8_t val);
@@ -40,6 +41,7 @@ namespace mock
     {
         MAKE_MOCK2(pinMode, void(uint8_t, uint8_t));
         MAKE_MOCK2(digitalWrite, void(uint8_t, uint8_t));
+        MAKE_MOCK1(digitalRead, int(uint8_t));
     };
 
     extern ArduinoMock arduino;
