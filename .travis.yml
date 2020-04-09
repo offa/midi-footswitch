@@ -14,7 +14,7 @@ jobs:
     - language: python
       python: 3.8
       env:
-        - COMPILER=pio
+        - COMPILER: pio
         - PLATFORMIO_SETTING_ENABLE_TELEMETRY: "no"
         - PLATFORMIO_SETTING_STRICT_SSL: "yes"
       cache:
@@ -23,11 +23,11 @@ jobs:
 
     - language: minimal
       env:
-        - COMPILER=gcc-9
+        - COMPILER: gcc-9
 
     - language: minimal
       env:
-        - COMPILER=clang-10
+        - COMPILER: clang-10
 
 
 install:
