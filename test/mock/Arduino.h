@@ -39,6 +39,7 @@ namespace mock
     struct ArduinoMock
     {
         MAKE_MOCK2(pinMode, void(uint8_t, uint8_t));
+        MAKE_MOCK2(digitalWrite, void(uint8_t, uint8_t));
     };
 
     extern ArduinoMock arduino;

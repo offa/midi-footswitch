@@ -26,9 +26,11 @@ namespace mock
     ArduinoMock arduino;
 }
 
-TEST_CASE("Led setup", "[MidiButtonTest]")
+TEST_CASE("Led setup sets pin mode and initial on", "[MidiButtonTest]")
 {
-    REQUIRE_CALL(mock::arduino, pinMode(3, OUTPUT));
-    Led<3> led;
+    constexpr std::uint8_t pin{3};
+    REQUIRE_CALL(mock::arduino, pinMode(pin, OUTPUT));
+    REQUIRE_CALL(mock::arduino, digitalWrite(pin, HIGH));
+    Led<pin> led;
     led.setup();
 }
