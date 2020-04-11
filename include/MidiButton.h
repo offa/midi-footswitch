@@ -83,7 +83,7 @@ public:
         return button.wasReleased();
     }
 
-private:
+protected:
     EasyButton button{pin};
 };
 

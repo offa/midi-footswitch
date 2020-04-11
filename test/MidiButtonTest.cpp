@@ -24,6 +24,18 @@
 namespace mock
 {
     ArduinoMock arduino;
+
+    namespace
+    {
+        template<uint8_t pin>
+        struct ButtonSpy : public Button<pin>
+        {
+            EasyButton& spy()
+            {
+                return this->button;
+            }
+        };
+    }
 }
 
 TEST_CASE("Setup sets pin mode and initial on", "[LedTest]")
@@ -44,4 +56,27 @@ TEST_CASE("Toggle toggles led", "[LedTest]")
 
     Led<pin> led;
     led.toggle();
+}
+
+TEST_CASE("Setup initializes button", "[ButtonTest]")
+{
+    mock::ButtonSpy<3> buttonSpy;
+    REQUIRE_CALL(buttonSpy.spy(), begin());
+    buttonSpy.setup();
+}
+
+TEST_CASE("Pressed returns pressed button state", "[ButtonTest]")
+{
+    mock::ButtonSpy<3> buttonSpy;
+    REQUIRE_CALL(buttonSpy.spy(), read()).RETURN(true);
+    REQUIRE_CALL(buttonSpy.spy(), wasReleased()).RETURN(true);
+    REQUIRE(buttonSpy.pressed() == true);
+}
+
+TEST_CASE("Pressed returns not pressed button state", "[ButtonTest]")
+{
+    mock::ButtonSpy<3> buttonSpy;
+    REQUIRE_CALL(buttonSpy.spy(), read()).RETURN(true);
+    REQUIRE_CALL(buttonSpy.spy(), wasReleased()).RETURN(false);
+    REQUIRE(buttonSpy.pressed() == false);
 }
