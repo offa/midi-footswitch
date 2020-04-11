@@ -77,7 +77,7 @@ public:
         button.begin();
     }
 
-    boolean pressed()
+    bool pressed()
     {
         button.read();
         return button.wasReleased();
