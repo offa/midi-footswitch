@@ -122,6 +122,16 @@ public:
         }
     }
 
+    Button& getButton()
+    {
+        return button;
+    }
+
+    Led& getLed()
+    {
+        return led;
+    }
+
 private:
     Button button;
     Led led;

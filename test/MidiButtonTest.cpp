@@ -27,13 +27,44 @@ namespace mock
 
     namespace
     {
-        template<uint8_t pin>
+        template <uint8_t pin>
         struct ButtonSpy : public Button<pin>
         {
             EasyButton& spy()
             {
                 return this->button;
             }
+        };
+
+        class ButtonMock
+        {
+        public:
+            MAKE_MOCK0(setup, void());
+            MAKE_MOCK0(pressed, bool());
+        };
+
+        class LedMock
+        {
+        public:
+            MAKE_MOCK0(setup, void());
+            MAKE_MOCK0(toggle, void());
+        };
+
+        class ActionImpl
+        {
+        public:
+            MAKE_MOCK0(onPressed, void());
+        };
+
+        class ActionMock
+        {
+        public:
+            static void onPressed()
+            {
+                impl.onPressed();
+            }
+
+            inline static ActionImpl impl;
         };
     }
 }
@@ -79,4 +110,28 @@ TEST_CASE("Pressed returns not pressed button state", "[ButtonTest]")
     REQUIRE_CALL(buttonSpy.spy(), read()).RETURN(true);
     REQUIRE_CALL(buttonSpy.spy(), wasReleased()).RETURN(false);
     REQUIRE(buttonSpy.pressed() == false);
+}
+
+TEST_CASE("Setup initializes button and led", "[MidiButtonTest]")
+{
+    MidiButton<mock::ButtonMock, mock::LedMock, mock::ActionMock> button;
+    REQUIRE_CALL(button.getButton(), setup());
+    REQUIRE_CALL(button.getLed(), setup());
+    button.setup();
+}
+
+TEST_CASE("Read does nothing if not pressed", "[MidiButtonTest]")
+{
+    MidiButton<mock::ButtonMock, mock::LedMock, mock::ActionMock> button;
+    REQUIRE_CALL(button.getButton(), pressed()).RETURN(false);
+    button.read();
+}
+
+TEST_CASE("Read executes action if pressed", "[MidiButtonTest]")
+{
+    MidiButton<mock::ButtonMock, mock::LedMock, mock::ActionMock> button;
+    REQUIRE_CALL(button.getButton(), pressed()).RETURN(true);
+    REQUIRE_CALL(button.getLed(), toggle());
+    REQUIRE_CALL(mock::ActionMock::impl, onPressed());
+    button.read();
 }
