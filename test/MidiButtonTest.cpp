@@ -69,6 +69,28 @@ namespace mock
     }
 }
 
+namespace
+{
+    auto midiEventEq(const midiEventPacket_t& event)
+    {
+        return trompeloeil::make_matcher<midiEventPacket_t>(
+            [](const midiEventPacket_t& expected, const midiEventPacket_t& actual) {
+                return std::tie(expected.header, expected.byte1, expected.byte2, expected.byte3) ==
+                       std::tie(actual.header, actual.byte1, actual.byte2, actual.byte3);
+            },
+            [](std::ostream& os, const midiEventPacket_t& event) {
+                os << std::hex << std::showbase << std::internal << std::setfill('0')
+                   << " midi event {" << std::setw(4) << std::uint32_t{event.header}
+                   << ", " << std::setw(4) << std::uint32_t(event.byte1)
+                   << ", " << std::setw(4) << std::uint32_t(event.byte2)
+                   << ", " << std::setw(4) << std::uint32_t(event.byte3) << "}";
+            },
+            event);
+    };
+}
+
+MIDIMock MidiUSB;
+
 TEST_CASE("Setup sets pin mode and initial on", "[LedTest]")
 {
     constexpr std::uint8_t pin{3};
@@ -134,4 +156,12 @@ TEST_CASE("Read executes action if pressed", "[MidiButtonTest]")
     REQUIRE_CALL(button.getLed(), toggle());
     REQUIRE_CALL(mock::ActionMock::impl, onPressed());
     button.read();
+}
+
+TEST_CASE("Send event message", "[MidiUSBTest]")
+{
+    const midiEventPacket_t expected{(0x1a & 0xf0) >> 4, (0x1a | 0x2b), 0xbb, 0xcc};
+    REQUIRE_CALL(MidiUSB, sendMIDI(midiEventEq(expected)));
+    REQUIRE_CALL(MidiUSB, flush());
+    detail::sendEventMessage<0x1a, 0x2b>(0xbb, 0xcc);
 }
