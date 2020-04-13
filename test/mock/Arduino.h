@@ -22,10 +22,6 @@
 #include <cstdint>
 #include <trompeloeil.hpp>
 
-using boolean = bool;
-
-
-
 inline constexpr uint8_t OUTPUT{1};
 inline constexpr uint8_t LOW{0};
 inline constexpr uint8_t HIGH{1};
