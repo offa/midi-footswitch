@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.12.0)
 
-project(plug VERSION 0.5.0)
+project(plug VERSION 0.5.1)
 message(STATUS "~~~ ${midi-footswitch} v${PROJECT_VERSION} ~~~")
 
 set(CMAKE_CXX_STANDARD 17)
