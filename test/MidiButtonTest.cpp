@@ -165,3 +165,45 @@ TEST_CASE("Send event message", "[MidiUSBTest]")
     REQUIRE_CALL(MidiUSB, flush());
     detail::sendEventMessage<0x1a, 0x2b>(0xbb, 0xcc);
 }
+
+TEST_CASE("Program change action sends packet", "[ProgramChangeActionTest]")
+{
+    constexpr std::uint8_t channel{0x02};
+    constexpr std::uint8_t program{0x11};
+    const midiEventPacket_t expected{0x0c, (0xc0 | channel), program, 0x00};
+    REQUIRE_CALL(MidiUSB, sendMIDI(midiEventEq(expected)));
+    REQUIRE_CALL(MidiUSB, flush());
+
+    ProgramChangeAction<channel, program>::onPressed();
+}
+
+TEST_CASE("Control change action sends packet", "[ProgramChangeActionTest]")
+{
+    constexpr std::uint8_t channel{0x05};
+    constexpr std::uint8_t control{0x22};
+    constexpr std::uint8_t data{0x33};
+    const midiEventPacket_t expected{0x0b, (0xb0 | channel), control, data};
+    REQUIRE_CALL(MidiUSB, sendMIDI(midiEventEq(expected)));
+    REQUIRE_CALL(MidiUSB, flush());
+
+    ControlChangeAction<channel, control, data>::onPressed();
+}
+
+TEST_CASE("Control change toggle action sends packet with toggled values", "[ProgramChangeActionTest]")
+{
+    constexpr std::uint8_t channel{0x03};
+    constexpr std::uint8_t control{0x17};
+    constexpr std::uint8_t dataA{0x01};
+    constexpr std::uint8_t dataB{0x02};
+    const midiEventPacket_t expected{0x0b, (0xb0 | channel), control, dataA};
+    REQUIRE_CALL(MidiUSB, sendMIDI(midiEventEq(expected)));
+    REQUIRE_CALL(MidiUSB, flush());
+
+    ControlChangeToggleAction<channel, control, dataA, dataB>::onPressed();
+
+    const midiEventPacket_t expectedB{0x0b, (0xb0 | channel), control, dataB};
+    REQUIRE_CALL(MidiUSB, sendMIDI(midiEventEq(expectedB)));
+    REQUIRE_CALL(MidiUSB, flush());
+
+    ControlChangeToggleAction<channel, control, dataA, dataB>::onPressed();
+}
