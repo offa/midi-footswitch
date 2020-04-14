@@ -26,4 +26,6 @@ target_include_directories(midibutton INTERFACE
                             )
 
 include("${CMAKE_BINARY_DIR}/conan_paths.cmake" OPTIONAL)
+
+enable_testing()
 add_subdirectory(test)
