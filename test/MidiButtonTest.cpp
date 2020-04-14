@@ -78,15 +78,15 @@ namespace
                 return std::tie(expected.header, expected.byte1, expected.byte2, expected.byte3) ==
                        std::tie(actual.header, actual.byte1, actual.byte2, actual.byte3);
             },
-            [](std::ostream& os, const midiEventPacket_t& event) {
+            [](std::ostream& os, const midiEventPacket_t& ev) {
                 os << std::hex << std::showbase << std::internal << std::setfill('0')
-                   << " midi event {" << std::setw(4) << std::uint32_t{event.header}
-                   << ", " << std::setw(4) << std::uint32_t(event.byte1)
-                   << ", " << std::setw(4) << std::uint32_t(event.byte2)
-                   << ", " << std::setw(4) << std::uint32_t(event.byte3) << "}";
+                   << " midi event {" << std::setw(4) << std::uint32_t{ev.header}
+                   << ", " << std::setw(4) << std::uint32_t(ev.byte1)
+                   << ", " << std::setw(4) << std::uint32_t(ev.byte2)
+                   << ", " << std::setw(4) << std::uint32_t(ev.byte3) << "}";
             },
             event);
-    };
+    }
 }
 
 MIDIMock MidiUSB;
