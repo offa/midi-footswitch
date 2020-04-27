@@ -23,7 +23,7 @@ jobs:
 
     - language: minimal
       env:
-        - COMPILER: gcc-9
+        - COMPILER: gcc-10
 
     - language: minimal
       env:
