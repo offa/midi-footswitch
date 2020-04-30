@@ -27,6 +27,10 @@ jobs:
 
     - language: minimal
       env:
+        - COMPILER: gcc-7
+
+    - language: minimal
+      env:
         - COMPILER: clang-10
 
 
