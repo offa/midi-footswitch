@@ -1,5 +1,5 @@
 [requires]
-catch2/2.11.3
+catch2/2.12.1
 trompeloeil/v36@rollbear/stable
 
 [generators]
