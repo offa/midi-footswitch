@@ -7,6 +7,9 @@ apt-get install -y python3-pip
 pip3 install conan
 conan profile new default --detect
 
+# Workaround for Clang 11 support (#25)
+cp -f script/settings.yml ~/.conan/
+
 if [[ "${CXX}" == clang* ]]
 then
     export CXXFLAGS="-stdlib=libc++"
