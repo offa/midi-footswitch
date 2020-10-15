@@ -31,7 +31,7 @@ jobs:
 
     - language: minimal
       env:
-        - COMPILER: clang-10
+        - COMPILER: clang-11
 
 
 install:
