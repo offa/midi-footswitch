@@ -18,55 +18,12 @@
  */
 
 #include "MidiButton.h"
+#include "mock/Mocks.h"
 #include <catch2/catch.hpp>
-#include <trompeloeil.hpp>
 
 namespace mock
 {
     ArduinoMock arduino;
-
-    namespace
-    {
-        template <uint8_t pin>
-        struct ButtonSpy : public Button<pin>
-        {
-            EasyButton& spy()
-            {
-                return this->button;
-            }
-        };
-
-        class ButtonMock
-        {
-        public:
-            MAKE_MOCK0(setup, void());
-            MAKE_MOCK0(pressed, bool());
-        };
-
-        class LedMock
-        {
-        public:
-            MAKE_MOCK0(setup, void());
-            MAKE_MOCK0(toggle, void());
-        };
-
-        class ActionImpl
-        {
-        public:
-            MAKE_MOCK0(onPressed, void());
-        };
-
-        class ActionMock
-        {
-        public:
-            static void onPressed()
-            {
-                impl.onPressed();
-            }
-
-            inline static ActionImpl impl;
-        };
-    }
 }
 
 namespace
