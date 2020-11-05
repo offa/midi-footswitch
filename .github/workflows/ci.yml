@@ -1,0 +1,35 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  build_linux:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        compiler:
+          - gcc-10
+          - gcc-7
+          - clang-11
+    container:
+      image: "registry.gitlab.com/offa/docker-images/${{ matrix.compiler }}:stable"
+    name: "${{ matrix.compiler }}"
+    steps:
+      - uses: actions/checkout@master
+      - name: Build
+        run: script/ci_build.sh
+
+  build_platformio:
+    runs-on: ubuntu-20.04
+    name: "PlatformIO"
+    steps:
+      - uses: actions/checkout@master
+      - name: Setup Python
+        uses: actions/setup-python@master
+      - name: Setup
+        run: |
+          pip install -U platformio
+          pio update
+          ./setup-pio-settings.sh
+      - name: Build
+        run: pio run
