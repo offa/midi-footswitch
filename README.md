@@ -1,7 +1,6 @@
 # MIDI Footswitch
 
 [![CI](https://github.com/offa/midi-footswitch/workflows/ci/badge.svg)](https://github.com/offa/midi-footswitch/actions)
-[![Build Status](https://travis-ci.com/offa/midi-footswitch.svg?branch=master)](https://travis-ci.com/offa/midi-footswitch)
 [![GitHub release](https://img.shields.io/github/release/offa/midi-footswitch.svg)](https://github.com/offa/midi-footswitch/releases)
 [![License](https://img.shields.io/badge/license-GPLv3-yellow.svg)](LICENSE)
 ![C++](https://img.shields.io/badge/c++-17-green.svg)
