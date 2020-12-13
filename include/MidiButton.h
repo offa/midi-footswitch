@@ -19,54 +19,10 @@
 
 #pragma once
 
+#include "MidiAction.h"
 #include <Arduino.h>
 #include <EasyButton.h>
-#include <MIDIUSB.h>
 
-namespace detail
-{
-    template <uint8_t type, uint8_t channel>
-    void sendEventMessage(uint8_t data0, uint8_t data1)
-    {
-        midiEventPacket_t event{(type & 0xf0) >> 4, (type | channel), data0, data1};
-        MidiUSB.sendMIDI(event);
-        MidiUSB.flush();
-    }
-}
-
-
-template <uint8_t channel, uint8_t control, uint8_t data>
-struct ControlChangeAction
-{
-    static void onPressed()
-    {
-        detail::sendEventMessage<0xb0, channel>(control, data);
-    }
-};
-
-
-template <uint8_t channel, uint8_t control, uint8_t dataA, uint8_t dataB>
-struct ControlChangeToggleAction
-{
-    static void onPressed()
-    {
-        detail::sendEventMessage<0xb0, channel>(control, (state ? dataA : dataB));
-        state = !state;
-    }
-
-private:
-    static inline bool state{true};
-};
-
-
-template <uint8_t channel, uint8_t program>
-struct ProgramChangeAction
-{
-    static void onPressed()
-    {
-        detail::sendEventMessage<0xc0, channel>(program, 0x00);
-    }
-};
 
 template <uint8_t pin>
 class Button
