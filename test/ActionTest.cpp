@@ -45,14 +45,14 @@ namespace
 MIDIMock MidiUSB;
 
 
-TEST_CASE("Send event message", "[MidiUSBTest]")
+TEST_CASE("Send event message", "[ActionTest]")
 {
     REQUIRE_CALL(MidiUSB, sendMIDI(midiEventEq({(0x1a & 0xf0) >> 4, (0x1a | 0x2b), 0xbb, 0xcc})));
     REQUIRE_CALL(MidiUSB, flush());
     detail::sendEventMessage<0x1a, 0x2b>(0xbb, 0xcc);
 }
 
-TEST_CASE("Program change action sends packet", "[ProgramChangeActionTest]")
+TEST_CASE("Program change action sends packet", "[ActionTest]")
 {
     constexpr std::uint8_t channel{0x02};
     constexpr std::uint8_t program{0x11};
@@ -62,7 +62,7 @@ TEST_CASE("Program change action sends packet", "[ProgramChangeActionTest]")
     ProgramChangeAction<channel, program>::onPressed();
 }
 
-TEST_CASE("Control change action sends packet", "[ProgramChangeActionTest]")
+TEST_CASE("Control change action sends packet", "[ActionTest]")
 {
     constexpr std::uint8_t channel{0x05};
     constexpr std::uint8_t control{0x22};
@@ -73,7 +73,7 @@ TEST_CASE("Control change action sends packet", "[ProgramChangeActionTest]")
     ControlChangeAction<channel, control, data>::onPressed();
 }
 
-TEST_CASE("Control change toggle action sends packet with toggled values", "[ProgramChangeActionTest]")
+TEST_CASE("Control change toggle action sends packet with toggled values", "[ActionTest]")
 {
     constexpr std::uint8_t channel{0x03};
     constexpr std::uint8_t control{0x17};
