@@ -20,6 +20,7 @@
 #include "MidiButton.h"
 #include "mock/Mocks.h"
 #include <catch2/catch.hpp>
+#include <catch2/trompeloeil.hpp>
 
 namespace mock
 {
