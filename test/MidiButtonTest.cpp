@@ -48,48 +48,6 @@ namespace
 
 MIDIMock MidiUSB;
 
-TEST_CASE("Setup sets pin mode and initial on", "[LedTest]")
-{
-    constexpr std::uint8_t pin{3};
-    REQUIRE_CALL(mock::arduino, pinMode(pin, OUTPUT));
-    REQUIRE_CALL(mock::arduino, digitalWrite(pin, HIGH));
-
-    Led<pin> led;
-    led.setup();
-}
-
-TEST_CASE("Toggle toggles led", "[LedTest]")
-{
-    constexpr std::uint8_t pin{8};
-    REQUIRE_CALL(mock::arduino, digitalRead(pin)).RETURN(LOW);
-    REQUIRE_CALL(mock::arduino, digitalWrite(pin, HIGH));
-
-    Led<pin> led;
-    led.toggle();
-}
-
-TEST_CASE("Setup initializes button", "[ButtonTest]")
-{
-    mock::ButtonSpy<3> buttonSpy;
-    REQUIRE_CALL(buttonSpy.spy(), begin());
-    buttonSpy.setup();
-}
-
-TEST_CASE("Pressed returns pressed button state", "[ButtonTest]")
-{
-    mock::ButtonSpy<3> buttonSpy;
-    REQUIRE_CALL(buttonSpy.spy(), read()).RETURN(true);
-    REQUIRE_CALL(buttonSpy.spy(), wasReleased()).RETURN(true);
-    REQUIRE(buttonSpy.pressed() == true);
-}
-
-TEST_CASE("Pressed returns not pressed button state", "[ButtonTest]")
-{
-    mock::ButtonSpy<3> buttonSpy;
-    REQUIRE_CALL(buttonSpy.spy(), read()).RETURN(true);
-    REQUIRE_CALL(buttonSpy.spy(), wasReleased()).RETURN(false);
-    REQUIRE(buttonSpy.pressed() == false);
-}
 
 TEST_CASE("Setup initializes button and led", "[MidiButtonTest]")
 {

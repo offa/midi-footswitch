@@ -15,9 +15,12 @@ endfunction()
 
 add_test_suite(MidiButtonTest)
 add_test_suite(LedTest)
+add_test_suite(ButtonTest)
 
 
 add_custom_target(unittest MidiButtonTest
-                    COMMENT "Running unittests\n\n"
-                    VERBATIM
-                    )
+    COMMAND LedTest
+    COMMAND ButtonTest
+    COMMENT "Running unittests\n\n"
+    VERBATIM
+    )
