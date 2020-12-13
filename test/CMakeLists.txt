@@ -14,6 +14,7 @@ function(add_test_suite name)
 endfunction()
 
 add_test_suite(MidiButtonTest)
+add_test_suite(LedTest)
 
 
 add_custom_target(unittest MidiButtonTest
