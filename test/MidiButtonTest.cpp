@@ -22,14 +22,6 @@
 #include <catch2/catch.hpp>
 #include <catch2/trompeloeil.hpp>
 
-namespace mock
-{
-    ArduinoMock arduino;
-}
-
-MIDIMock MidiUSB;
-
-
 TEST_CASE("Setup initializes button and led", "[MidiButtonTest]")
 {
     MidiButton<mock::ButtonMock, mock::LedMock, mock::ActionMock> button;
