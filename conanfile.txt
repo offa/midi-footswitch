@@ -1,6 +1,6 @@
 [requires]
 catch2/2.13.4
-trompeloeil/v39@rollbear/stable
+trompeloeil/40
 
 [generators]
 cmake_find_package
