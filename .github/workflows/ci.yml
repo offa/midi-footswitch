@@ -17,7 +17,7 @@ jobs:
       image: "registry.gitlab.com/offa/docker-images/${{ matrix.compiler }}:stable"
     name: "${{ matrix.compiler }}"
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Build
         run: script/ci_build.sh
 
@@ -25,9 +25,9 @@ jobs:
     runs-on: ubuntu-20.04
     name: "PlatformIO"
     steps:
-      - uses: actions/checkout@master
+      - uses: actions/checkout@main
       - name: Setup Python
-        uses: actions/setup-python@master
+        uses: actions/setup-python@main
       - name: Setup
         run: |
           pip install -U platformio
