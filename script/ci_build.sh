@@ -16,10 +16,7 @@ fi
 
 mkdir build && cd build
 
-conan install \
-    -g cmake_find_package \
-    -g cmake_paths \
-    ..
+conan install ..
 
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make
