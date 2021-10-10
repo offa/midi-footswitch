@@ -11,6 +11,7 @@ jobs:
           - gcc-11
           - gcc-10
           - gcc-7
+          - clang-13
           - clang-12
           - clang-11
     container:
