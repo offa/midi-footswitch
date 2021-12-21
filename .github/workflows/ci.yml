@@ -34,7 +34,7 @@ jobs:
           cache: 'pip'
       - name: Setup
         run: |
-          pip install -U platformio
+          pip install -U -r requirements.txt
           ./setup-pio-settings.sh
           pio update
       - name: Build
