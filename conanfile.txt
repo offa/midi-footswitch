@@ -1,5 +1,5 @@
 [requires]
-catch2/2.13.7
+catch2/2.13.8
 trompeloeil/42
 
 [generators]
