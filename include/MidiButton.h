@@ -28,12 +28,12 @@ template <uint8_t pin>
 class Button
 {
 public:
-    void setup()
+    void setup() noexcept
     {
         button.begin();
     }
 
-    bool pressed()
+    bool pressed() noexcept
     {
         button.read();
         return button.wasReleased();
@@ -47,13 +47,13 @@ template <uint8_t pin>
 class Led
 {
 public:
-    void setup()
+    void setup() noexcept
     {
         pinMode(pin, OUTPUT);
         digitalWrite(pin, HIGH);
     }
 
-    void toggle()
+    void toggle() noexcept
     {
         digitalWrite(pin, !digitalRead(pin));
     }
@@ -63,13 +63,13 @@ template <class Button, class Led, class Action>
 class MidiButton
 {
 public:
-    void setup()
+    void setup() noexcept
     {
         button.setup();
         led.setup();
     }
 
-    void read()
+    void read() noexcept
     {
         if (button.pressed())
         {
@@ -78,12 +78,12 @@ public:
         }
     }
 
-    Button& getButton()
+    Button& getButton() noexcept
     {
         return button;
     }
 
-    Led& getLed()
+    Led& getLed() noexcept
     {
         return led;
     }

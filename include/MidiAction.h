@@ -24,7 +24,7 @@
 namespace detail
 {
     template <uint8_t type, uint8_t channel>
-    void sendEventMessage(uint8_t data0, uint8_t data1)
+    void sendEventMessage(uint8_t data0, uint8_t data1) noexcept
     {
         midiEventPacket_t event{(type & 0xf0) >> 4, (type | channel), data0, data1};
         MidiUSB.sendMIDI(event);
@@ -36,7 +36,7 @@ namespace detail
 template <uint8_t channel, uint8_t control, uint8_t data>
 struct ControlChangeAction
 {
-    static void onPressed()
+    static void onPressed() noexcept
     {
         detail::sendEventMessage<0xb0, channel>(control, data);
     }
@@ -46,7 +46,7 @@ struct ControlChangeAction
 template <uint8_t channel, uint8_t control, uint8_t dataA, uint8_t dataB>
 struct ControlChangeToggleAction
 {
-    static void onPressed()
+    static void onPressed() noexcept
     {
         detail::sendEventMessage<0xb0, channel>(control, (state ? dataA : dataB));
         state = !state;
@@ -60,7 +60,7 @@ private:
 template <uint8_t channel, uint8_t program>
 struct ProgramChangeAction
 {
-    static void onPressed()
+    static void onPressed() noexcept
     {
         detail::sendEventMessage<0xc0, channel>(program, 0x00);
     }
