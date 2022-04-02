@@ -11,9 +11,9 @@ jobs:
           - gcc-11
           - gcc-10
           - gcc-7
+          - clang-14
           - clang-13
           - clang-12
-          - clang-11
     container:
       image: "registry.gitlab.com/offa/docker-images/${{ matrix.compiler }}:stable"
     name: "${{ matrix.compiler }}"
