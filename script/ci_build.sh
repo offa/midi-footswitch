@@ -17,7 +17,7 @@ fi
 
 mkdir build && cd build
 
-conan install --build=missing ..
+conan install --build=missing -s compiler.cppstd=17 ..
 
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake ..
 make
