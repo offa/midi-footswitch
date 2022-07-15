@@ -17,7 +17,7 @@ fi
 
 mkdir build && cd build
 
-conan install ..
+conan install --build=missing ..
 
 cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake ..
 make
