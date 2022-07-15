@@ -19,6 +19,6 @@ mkdir build && cd build
 
 conan install ..
 
-cmake -DCMAKE_BUILD_TYPE=Release ..
+cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake ..
 make
 make unittest
