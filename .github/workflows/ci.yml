@@ -36,6 +36,6 @@ jobs:
         run: |
           pip install -U -r requirements.txt
           ./setup-pio-settings.sh
-          pio update
+          pio pkg update
       - name: Build
         run: pio run
