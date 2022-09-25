@@ -28,11 +28,13 @@ namespace
     auto midiEventEq(const midiEventPacket_t& event)
     {
         return trompeloeil::make_matcher<midiEventPacket_t>(
-            [](const midiEventPacket_t& expected, const midiEventPacket_t& actual) {
+            [](const midiEventPacket_t& expected, const midiEventPacket_t& actual)
+            {
                 return std::tie(expected.header, expected.byte1, expected.byte2, expected.byte3) ==
                        std::tie(actual.header, actual.byte1, actual.byte2, actual.byte3);
             },
-            [](std::ostream& os, const midiEventPacket_t& ev) {
+            [](std::ostream& os, const midiEventPacket_t& ev)
+            {
                 os << std::hex << std::showbase << std::internal << std::setfill('0')
                    << " midi event {" << std::setw(4) << std::uint32_t{ev.header}
                    << ", " << std::setw(4) << std::uint32_t(ev.byte1)
