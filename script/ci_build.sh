@@ -2,26 +2,24 @@
 
 set -ex
 
+BUILD_TYPE=Release
+
 # Conan
 apt-get update
 apt-get install -y python3-pip
 pip3 install conan
-conan profile new default --detect
+conan profile detect
 
 if [[ "${CXX}" == clang* ]]
 then
     export CXXFLAGS="-stdlib=libc++"
-    conan profile update settings.compiler.libcxx=libc++ default
-else
-    conan profile update settings.compiler.libcxx=libstdc++11 default
+    sed -i 's/^compiler.libcxx=.*$/compiler.libcxx=libc++/g' ~/.conan2/profiles/default
 fi
-
-conan profile update settings.compiler.cppstd=17 default
 
 mkdir build && cd build
 
 conan install --build=missing ..
 
-cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE=conan_paths.cmake ..
+cmake -DCMAKE_TOOLCHAIN_FILE=./conan_toolchain.cmake -DCMAKE_BUILD_TYPE="${BUILD_TYPE}" ..
 make
 make unittest
