@@ -31,7 +31,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@main
         with:
-          python-version: "3.10"
+          python-version: "3.11"
           cache: "pip"
       - name: Setup
         run: |
@@ -49,5 +49,5 @@ jobs:
     - uses: DoozyX/clang-format-lint-action@master
       name: "Verify formatting"
       with:
-        clangFormatVersion: 14
+        clangFormatVersion: 15
 
